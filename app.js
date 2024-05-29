@@ -18,7 +18,7 @@ const userRoutes = require("./routes/users")
 
 
 
-mongoose.connect(`mongodb+srv://jayadeep:jayadeep@cluster0.t3e9vja.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`)
+mongoose.connect(process.env.MONGO_URI)
     .then(() => {
         console.log(`MongoDB Connected on MongoDB Cluster`)
     })
