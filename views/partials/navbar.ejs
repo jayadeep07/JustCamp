@@ -1,0 +1,62 @@
+<nav class="navbar navbar-expand-sm" style="background-color: #17a2b8; color: #fff;">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/" style="font-weight: bold; color: #fff;">Justcamp</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarID"
+            aria-controls="navbarID" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarID">
+            <div class="navbar-nav mr-auto">
+                <a class="nav-link active" aria-current="page" href="/"
+                    style="color: #fff; margin-right: 15px;">Home</a>
+                <a class="nav-link" aria-current="page" href="/campgrounds"
+                    style="color: #fff; margin-right: 15px;">Campgrounds</a>
+                <% if(currentUser){ %>
+                    <a class="nav-link" aria-current="page" href="/campgrounds/new"
+                        style="color: #fff; margin-right: 15px;">Add New Campground</a>
+                    <% } %>
+            </div>
+            <div class="navbar-nav ml-auto">
+                <% if(!currentUser) { %>
+                    <a href="/login" class="nav-link" style="color: #fff; margin-right: 15px;">Login</a>
+                    <a href="/register" class="nav-link" style="color: #fff;">Register</a>
+                    <% } else { %>
+                        <a href="/logout" class="nav-link" style="color: #fff;">Logout</a>
+                        <% } %>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<style>
+    .navbar {
+        background-color: #17a2b8 !important;
+    }
+
+    .nav-link {
+        color: #fff !important;
+        font-size: 1.1em;
+        transition: color 0.3s ease;
+    }
+
+    .nav-link:hover {
+        color: #d4d4d4 !important;
+    }
+
+    .navbar-brand {
+        font-size: 1.5em;
+        font-weight: bold;
+    }
+
+    .navbar-toggler-icon {
+        background-image: url('data:image/svg+xml;charset=utf8,%3Csvg viewBox%3D"0 0 30 30" xmlns%3D"http://www.w3.org/2000/svg"%3E%3Cpath stroke%3D"rgba%28255, 255, 255, 0.5%29" stroke-width%3D"2" stroke-linecap%3D"round" stroke-miterlimit%3D"10" d%3D"M4 7h22M4 15h22M4 23h22"/%3E%3C/svg%3E');
+    }
+
+    .navbar-toggler {
+        border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .navbar-collapse {
+        justify-content: flex-end;
+    }
+</style>
