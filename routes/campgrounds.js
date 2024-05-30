@@ -36,7 +36,7 @@ router.get("/new", isLoggedIn, async (req, res) => {
 // }
 
 //to create a new camp
-router.post('/', isLoggedIn, validateCamp, catchAsync(async (req, res, next) => {
+router.post('/new', isLoggedIn, validateCamp, catchAsync(async (req, res, next) => {
     // if (check(req.body.camp)) {
     //     throw new ExpressError('Invalid Campground Data', 400);
     // }
@@ -72,7 +72,7 @@ router.get("/:id/edit", isLoggedIn, isAuthor, catchAsync(async (req, res, next) 
 
 
 //update the camp
-router.put("/:id", isLoggedIn, isAuthor, validateCamp, catchAsync(async (req, res, next) => {
+router.put("/:id/edit", isLoggedIn, isAuthor, validateCamp, catchAsync(async (req, res, next) => {
     const { id } = req.params
     const camp = await Campground.findByIdAndUpdate(id, { ...req.body.camp })
     req.flash("success", "successfully updated the component")

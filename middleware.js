@@ -50,8 +50,11 @@ module.exports.isReviewAuthor = async (req, res, next) => {
 module.exports.validateCamp = (req, res, next) => {
     const { error } = campschema.validate(req.body)
     if (error) {
-        const msg = error.details.map(el => el.message).join(",")
-        throw new ExpressError(msg, 400)
+        req.flash("error", "Invalid type of data")
+        res.redirect(`${req.originalUrl}`)
+        // const msg = error.details.map(el => el.message).join(",")
+        // console.log(req.originalUrl)
+        // throw new ExpressError(msg, 400)
     } else {
         next()
     }
@@ -60,8 +63,10 @@ module.exports.validateCamp = (req, res, next) => {
 module.exports.validateReview = (req, res, next) => {
     const { error } = reviewschema.validate(req.body)
     if (error) {
-        const msg = error.details.map(el => el.message).join(",")
-        throw new ExpressError(msg, 400)
+        req.flash("error", "Invalid review")
+        res.redirect(`/campgrounds/${req.params.id}`)
+        // const msg = error.details.map(el => el.message).join(",")
+        // throw new ExpressError(msg, 400)
     } else {
         next()
     }
