@@ -1,5 +1,5 @@
 const ExpressError = require("./utils/ExpressError")
-const { campschema, reviewschema } = require("./models/checkcamp")
+const { campschema, reviewschema, userschema } = require("./models/checkcamp")
 const Campground = require("./models/campground")
 const Review = require("./models/review")
 
@@ -50,6 +50,7 @@ module.exports.isReviewAuthor = async (req, res, next) => {
 module.exports.validateCamp = (req, res, next) => {
     const { error } = campschema.validate(req.body)
     if (error) {
+
         req.flash("error", "Invalid type of data")
         res.redirect(`${req.originalUrl}`)
         // const msg = error.details.map(el => el.message).join(",")
@@ -65,6 +66,19 @@ module.exports.validateReview = (req, res, next) => {
     if (error) {
         req.flash("error", "Invalid review")
         res.redirect(`/campgrounds/${req.params.id}`)
+        // const msg = error.details.map(el => el.message).join(",")
+        // throw new ExpressError(msg, 400)
+    } else {
+        next()
+    }
+}
+
+module.exports.validateUser = (req, res, next) => {
+    const { error } = userschema.validate(req.body)
+    if (error) {
+        req.flash("error", error.details[0].message)
+        res.redirect(`${req.originalUrl}`)
+        // console.log(error)
         // const msg = error.details.map(el => el.message).join(",")
         // throw new ExpressError(msg, 400)
     } else {

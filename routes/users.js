@@ -3,13 +3,13 @@ const router = express.Router()
 const User = require("../models/user")
 const catchAsync = require("../utils/catchAsync")
 const passport = require("passport")
-const { storeReturnTo } = require("../middleware")
+const { storeReturnTo, validateUser } = require("../middleware")
 
 router.get("/register", (req, res) => {
     res.render("users/register")
 })
 
-router.post("/register", catchAsync(async (req, res, next) => {
+router.post("/register", validateUser, catchAsync(async (req, res, next) => {
     try {
         const { email, username, password } = req.body
         const user = new User({ username, email })
@@ -20,8 +20,8 @@ router.post("/register", catchAsync(async (req, res, next) => {
             res.redirect("/campgrounds")
         })
 
-    } catch (e) {
-        req.flash("error", e.message)
+    } catch (err) {
+        req.flash("error", "User or Email already exists")
         res.redirect("/register")
     }
 }))
