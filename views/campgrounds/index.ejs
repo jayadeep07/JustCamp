@@ -18,7 +18,11 @@
                                 <%= i.title %>
                             </h5>
                             <p class="card-text">
-                                <%= i.description %>
+                                <% if (i.description.length> 100) { %>
+                                    <%= i.description.substring(0, 100) + '...' %>
+                                        <% } else { %>
+                                            <%= i.description %>
+                                                <% } %>
                             </p>
                             <p class="text-muted">
                                 <i class="bi bi-geo-alt-fill"></i>
