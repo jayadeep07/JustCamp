@@ -74,6 +74,10 @@ module.exports.validateReview = (req, res, next) => {
 }
 
 module.exports.validateUser = (req, res, next) => {
+    if (req.body.username[0] === " ") {
+        req.flash("error", "Username cannot start with a space.")
+        return res.redirect(`${req.originalUrl}`)
+    }
     const { error } = userschema.validate(req.body)
     if (error) {
         req.flash("error", error.details[0].message)
